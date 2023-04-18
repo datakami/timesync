@@ -1,0 +1,10 @@
+{
+    "extends": "@tsconfig/node18/tsconfig.json",
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "module": "ES2020",
+        "moduleResolution": "nodenext",
+        "outDir": "lib/"
+    },
+    "includes": ["src/*.ts"],
+}

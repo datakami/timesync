@@ -1,0 +1,20 @@
+{
+  "name": "timesync",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@tsconfig/node18": "^1.0.2",
+    "@types/luxon": "^3.3.0",
+    "@types/node": "^18.15.11",
+    "@types/pouchdb": "^6.4.0",
+    "@types/pouchdb-find": "^7.3.0",
+    "luxon": "^3.3.0",
+    "node-fetch": "2",
+    "pouchdb": "^8.0.1",
+    "pouchdb-find": "^8.0.1",
+    "typescript": "^5.0.4",
+    "xdg-basedir": "^5.1.0"
+  }
+}
