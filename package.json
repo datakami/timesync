@@ -1,9 +1,12 @@
 {
-  "name": "timesync",
+  "name": "marvin-timesync",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "type": "module",
+  "bin": {
+    "marvin-timesync": "./bin/marvin-timesync.js"
+  },
   "dependencies": {
     "@tsconfig/node18": "^1.0.2",
     "@types/luxon": "^3.3.0",
@@ -16,5 +19,12 @@
     "pouchdb-find": "^8.0.1",
     "typescript": "^5.0.4",
     "xdg-basedir": "^5.1.0"
-  }
+  },
+  "scripts": {
+    "watch": "exec tsc --noEmit -w",
+    "start": "exec tsx ./src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "exec tsc"
+  },
+  "private": true
 }
