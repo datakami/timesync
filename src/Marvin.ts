@@ -21,12 +21,11 @@ interface Credentials {
 }
 
 export class Marvin {
-  credentials: Credentials
   remote: PouchDB.Database
   db: PouchDB.Database
   synced: Promise<PouchDB.Find.CreateIndexResponse<{}>>
   root: Taskset
-  constructor(credentials: Credentials=Marvin.parseCredentials(), dbName = "marvin") {
+  constructor(public credentials: Credentials=Marvin.parseCredentials(), dbName = "marvin") {
     const c = credentials
     let u = new URL(c.syncServer)
     Object.assign(u, {
@@ -34,7 +33,6 @@ export class Marvin {
       password: c.syncPassword,
       pathname: "/" + c.syncDatabase
     })
-    this.credentials = credentials
     this.remote = new PouchDB(u.href)
     this.db = new PouchDB(dbName)
     this.synced = new Promise((resolve, reject) => {
@@ -128,7 +126,6 @@ function toInterval([start, end]: [number, number]): Interval {
 }
 
 class Task {
-  _task: Marvin_types.Task
   title: string
   day: string
   dueDate: string | null
@@ -136,15 +133,14 @@ class Task {
   doneAt: DateTime | null
   createdAt: DateTime
   times: Interval[]
-  constructor(task: Marvin_types.Task) {
-    this._task = task
-    this.title = task.title
-    this.day = task.day
-    this.dueDate = task.dueDate
-    this.done = !!task.done
-    this.doneAt = task.doneAt ? DateTime.fromMillis(task.doneAt) : null
-    this.createdAt = DateTime.fromMillis(task.createdAt)
-    this.times = task.times ? chunk<number, 2>(task.times, 2).map(toInterval) : []
+  constructor(public _task: Marvin_types.Task) {
+    this.title = _task.title
+    this.day = _task.day
+    this.dueDate = _task.dueDate
+    this.done = !!_task.done
+    this.doneAt = _task.doneAt ? DateTime.fromMillis(_task.doneAt) : null
+    this.createdAt = DateTime.fromMillis(_task.createdAt)
+    this.times = _task.times ? chunk<number, 2>(_task.times, 2).map(toInterval) : []
   }
   timesInInterval(interval: Interval): Interval[] {
     return this.times.map(time => time.intersection(interval)).filter(x => x !== null) as Interval[]
@@ -166,12 +162,8 @@ class Task {
 }
 
 class Taskset {
-  marv: Marvin
-  _id: string
-  constructor(marv: Marvin, _id: string, rest: Marvin_types.DBEntry | null) {
-    this.marv = marv
-    this._id = _id
-    Object.assign(this, {marv, _id}, rest)
+  constructor(public readonly marv: Marvin, public readonly _id: string, rest: Marvin_types.DBEntry | null) {
+    Object.assign(this, rest)
   }
   async category(n: string): Promise<Taskset> {
     await this.marv.synced

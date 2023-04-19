@@ -37,8 +37,7 @@ import Req = API.Request
 import Res = API.Response
 
 export class Toggl {
-  api_token: string
-  constructor(api_token=readFileSync("toggl-api", "utf8").trim()) {
+  constructor(private readonly api_token: string=readFileSync("toggl-api", "utf8").trim()) {
     this.api_token = api_token
   }
   async parseResponse(response: Awaited<ReturnType<typeof fetch>>) {
@@ -86,12 +85,8 @@ export class Toggl {
   }
 }
 export class Workspace {
-  toggl: Toggl
-  workspace: Toggl_types.Workspace
-  constructor(t: Toggl, w: Toggl_types.Workspace) {
-    this.toggl = t
-    this.workspace = w
-  }
+  constructor(public readonly toggl: Toggl, public readonly workspace: Toggl_types.Workspace) {}
+
   async post_time_entry(query: Omit<Req.POST.TimeEntry, "workspace_id">): Promise<Toggl_types.TimeEntry> {
     const workspace_id = this.workspace.id
     const q2: Req.POST.TimeEntry = Object.assign({ workspace_id }, query)

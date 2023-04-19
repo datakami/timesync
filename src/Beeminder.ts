@@ -120,10 +120,8 @@ export namespace API {
   }
 }
 export class Beeminder {
-  token: string
-  constructor(token: string) {
-    this.token = token
-  }
+  constructor(private readonly token: string) {}
+
   async post_request(url: string, post_data: any, method: "POST" | "PUT" = "POST") {
     const response = await fetch("https://www.beeminder.com/api/v1/" + url + ".json", {
       method,
@@ -154,12 +152,7 @@ export class Beeminder {
 }
 
 export class User {
-  b: Beeminder
-  user: string
-  constructor(b: Beeminder, user: string) {
-    this.b = b
-    this.user = user
-  }
+  constructor(public readonly b: Beeminder, public readonly user: string) {}
   info() {
     return this.b.get_request(`users/${this.user}`)
   }
@@ -174,15 +167,8 @@ export class User {
   }
 }
 export class Goal {
-  b: Beeminder
-  user: string
-  goal: string
-  prefix: string
-  constructor(b: Beeminder, user: string, goal: string) {
-    Object.assign(this, { b, user, goal })
-    this.b = b
-    this.user = user
-    this.goal = goal
+  readonly prefix: string
+  constructor(public readonly b: Beeminder, public readonly user: string, public readonly goal: string) {
     this.prefix = `users/${this.user}/goals/${this.goal}`
   }
   info(): Promise<Goal> {
