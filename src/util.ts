@@ -1,3 +1,7 @@
+// Copyright 2023 Datakami
+//
+// SPDX-License-Identifier: MIT
+
 import { Duration } from "luxon"
 export namespace DurationUtil {
   export const zero = Duration.fromMillis(0)

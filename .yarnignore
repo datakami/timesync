@@ -1,2 +1,6 @@
+# Copyright 2023 Datakami
+#
+# SPDX-License-Identifier: MIT
+
 yarn-cache
 src/*

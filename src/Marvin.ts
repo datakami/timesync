@@ -1,3 +1,7 @@
+// Copyright 2023 Datakami
+//
+// SPDX-License-Identifier: MIT
+
 import { readFileSync } from "node:fs"
 import { DateTime, Interval, Duration } from "luxon"
 import { inspect } from "node:util"

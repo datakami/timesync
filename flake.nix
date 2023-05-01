@@ -1,3 +1,7 @@
+# Copyright 2023 Datakami
+#
+# SPDX-License-Identifier: MIT
+
 {
   inputs.nix-npm-buildpackage.url = "github:serokell/nix-npm-buildpackage";
   inputs.nix-npm-buildpackage.inputs.nixpkgs.follows = "nixpkgs";

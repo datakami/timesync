@@ -1,3 +1,7 @@
+// Copyright 2023 Datakami
+//
+// SPDX-License-Identifier: MIT
+
 namespace models {
   export type CardDetails = unknown;
   export type ContactDetail = unknown;

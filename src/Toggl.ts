@@ -1,3 +1,7 @@
+// Copyright 2023 Datakami
+//
+// SPDX-License-Identifier: MIT
+
 import { readFileSync } from "node:fs"
 import { Buffer } from "node:buffer"
 import type * as Toggl_types from "./toggl-types.js"

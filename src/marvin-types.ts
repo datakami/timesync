@@ -1,3 +1,7 @@
+// Copyright 2023 Datakami
+//
+// SPDX-License-Identifier: MIT
+
 export interface Task {
   _id: string;
   createdAt: number;

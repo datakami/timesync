@@ -1,0 +1,5 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+
+Files: README.md flake.lock package.json tsconfig.json yarn.lock
+Copyright: 2022 Datakami <hi@datakami.nl>
+License: MIT

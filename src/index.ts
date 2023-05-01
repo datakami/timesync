@@ -1,3 +1,7 @@
+// Copyright 2023 Datakami
+//
+// SPDX-License-Identifier: MIT
+
 import { Toggl, Workspace } from "./Toggl.js"
 import { DateTime, Interval, Settings as LuxonSettings } from "luxon"
 import { Marvin } from "./Marvin.js"

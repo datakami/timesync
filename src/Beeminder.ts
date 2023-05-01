@@ -1,3 +1,7 @@
+// Copyright 2023 Datakami
+//
+// SPDX-License-Identifier: MIT
+
 export namespace API {
   export type CreateDatapoint = {
     value: number;
