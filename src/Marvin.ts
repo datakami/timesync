@@ -144,7 +144,7 @@ class Task {
     this.done = !!_task.done
     this.doneAt = _task.doneAt ? DateTime.fromMillis(_task.doneAt) : null
     this.createdAt = DateTime.fromMillis(_task.createdAt)
-    this.times = _task.times ? chunk<number, 2>(_task.times, 2).map(toInterval) : []
+    this.times = _task.times ? chunk(_task.times, 2).map(toInterval) : []
   }
   timesInInterval(interval: Interval): Interval[] {
     return this.times.map(time => time.intersection(interval)).filter(x => x !== null) as Interval[]
@@ -166,7 +166,7 @@ class Task {
 }
 
 class Taskset {
-  constructor(public readonly marv: Marvin, public readonly _id: string, rest: Marvin_types.DBEntry | null) {
+  constructor(public marv: Marvin, public _id: string, rest: Marvin_types.DBEntry | null) {
     Object.assign(this, rest)
   }
   async category(n: string): Promise<Taskset> {
