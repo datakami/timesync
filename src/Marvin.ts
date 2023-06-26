@@ -73,7 +73,7 @@ export class Marvin {
       }
       return response.text()
     } else {
-      throw [response.status, await response.text()]
+      throw new Error(`got http ${response.status}: ${await response.text()}`)
     }
   }
   async test() {
