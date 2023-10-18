@@ -99,24 +99,28 @@ async function apply_tasks_for_range(workspace: Workspace, interval: Interval, w
 
 void (async function () {
   const config = await inferConfig()
-  const interval = dateToInterval(process.argv.length > 2 ? process.argv[2] : 'today')
+  const args = process.argv.length > 2 ? process.argv.slice(2) : ["today"]
+
 
   const marvin = new Marvin(Marvin.parseCredentials(config.marvin), config.marvinDB + "marvin")
-  const tasks = await (marvin.root.category('Datakami').then(datakami => datakami.tasksOverlapping(interval)))
 
   const toggl = new Toggl(config.toggl)
   const workspaces = await toggl.workspaces()
   if (workspaces.length !== 1) throw new Error("not sure which workspace to use")
+  for (const arg of args) {
+    const interval = dateToInterval(arg)
+    const tasks = await (marvin.root.category('Datakami').then(datakami => datakami.tasksOverlapping(interval)))
 
-  const res_tasks: TogglTE[] = []
-  for (const task of tasks)
-    for (const task_interval of task.timesInInterval(interval))
-      res_tasks.push({
-        description: `${task.title}`,
-        start: toRFC3339(task_interval.start),
-        stop: toRFC3339(task_interval.end)
-      })
+    const res_tasks: TogglTE[] = []
+    for (const task of tasks)
+      for (const task_interval of task.timesInInterval(interval))
+        res_tasks.push({
+          description: `${task.title}`,
+          start: toRFC3339(task_interval.start),
+          stop: toRFC3339(task_interval.end)
+        })
 
-  await apply_tasks_for_range(workspaces[0], interval, res_tasks)
+    await apply_tasks_for_range(workspaces[0], interval, res_tasks)
+  }
   
 })()
